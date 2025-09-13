@@ -1,0 +1,16 @@
+---
+name: 'Auto Issue Link'
+author: "jop-software Inh. Johannes Przymusinski"
+description: 'Link new Pull Requests with existing Issues by the branch name.'
+branding:
+  icon: "bookmark"
+  color: "green"
+inputs:
+  token:
+    description: >
+      Personal access token (PAT) used for Github API requests.
+      Usually (and per default) `github.token`
+runs:
+  using: 'node24'
+  main: 'dist/index.js'
+  post: 'dist/index.js'

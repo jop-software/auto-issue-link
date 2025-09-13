@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "lib": [
+        "es6"
+      ],
+      "outDir": "./lib",
+      "rootDir": "./src",
+      "declaration": true,
+      "strict": true,
+      "noImplicitAny": false,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "types": ["node", "vitest"]
+    },
+    "include": ["src/**/*"],
+    "exclude": ["**/*.test.ts", "vitest.config.ts", "lib", "node_modules"]
+  }
