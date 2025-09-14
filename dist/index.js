@@ -67,15 +67,30 @@ function findIssueByNumber(context, token, issueNumber) {
         return issue;
     });
 }
-function addCommentToPr(context, token, prNumber, issueNumber) {
+function appendFixesToPrBody(context, token, prNumber, issueNumber) {
     return __awaiter(this, void 0, void 0, function* () {
         const octokit = github.getOctokit(token);
         const { owner, repo } = context.repo;
-        const res = yield octokit.rest.issues.createComment({
+        // Get the current PR body
+        const { data: pr } = yield octokit.rest.pulls.get({
             owner,
             repo,
-            issue_number: prNumber,
-            body: `Fixes #${issueNumber}`,
+            pull_number: prNumber,
+        });
+        let body = pr.body || "";
+        // Remove any existing 'Fixes #<issueNumber>' at the end
+        body = body.replace(new RegExp(`\n*Fixes #${issueNumber}$`), "");
+        // Append the new line
+        if (body.length > 0 && !body.endsWith("\n")) {
+            body += "\n";
+        }
+        body += `Fixes #${issueNumber}`;
+        // Update the PR body
+        const res = yield octokit.rest.pulls.update({
+            owner,
+            repo,
+            pull_number: prNumber,
+            body,
         });
         return res.data;
     });
@@ -100,8 +115,8 @@ function run() {
             core.setFailed("No pull request found in the context.");
             return;
         }
-        const comment = yield addCommentToPr(context, token, pullRequest.number, issueNumber);
-        core.info(`Commented on PR #${pullRequest.number}: ${comment.html_url}`);
+        const updatedPr = yield appendFixesToPrBody(context, token, pullRequest.number, issueNumber);
+        core.info(`Updated PR #${pullRequest.number} body with 'Fixes #${issueNumber}'`);
     });
 }
 function main() {
