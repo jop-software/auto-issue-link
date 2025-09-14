@@ -28,7 +28,7 @@ async function findIssueByNumber(
   return issue;
 }
 
-async function addCommentToPr(
+async function appendFixesToPrBody(
   context: Context,
   token: string,
   prNumber: number,
@@ -36,14 +36,27 @@ async function addCommentToPr(
 ) {
   const octokit = github.getOctokit(token);
   const { owner, repo } = context.repo;
-
-  const res = await octokit.rest.issues.createComment({
+  // Get the current PR body
+  const { data: pr } = await octokit.rest.pulls.get({
     owner,
     repo,
-    issue_number: prNumber,
-    body: `Fixes #${issueNumber}`,
+    pull_number: prNumber,
   });
-
+  let body = pr.body || "";
+  // Remove any existing 'Fixes #<issueNumber>' at the end
+  body = body.replace(new RegExp(`\n*Fixes #${issueNumber}$`), "");
+  // Append the new line
+  if (body.length > 0 && !body.endsWith("\n")) {
+    body += "\n";
+  }
+  body += `Fixes #${issueNumber}`;
+  // Update the PR body
+  const res = await octokit.rest.pulls.update({
+    owner,
+    repo,
+    pull_number: prNumber,
+    body,
+  });
   return res.data;
 }
 
@@ -70,13 +83,15 @@ async function run(): Promise<void> {
     core.setFailed("No pull request found in the context.");
     return;
   }
-  const comment = await addCommentToPr(
+  const updatedPr = await appendFixesToPrBody(
     context,
     token,
     pullRequest.number,
     issueNumber
   );
-  core.info(`Commented on PR #${pullRequest.number}: ${comment.html_url}`);
+  core.info(
+    `Updated PR #${pullRequest.number} body with 'Fixes #${issueNumber}'`
+  );
 }
 
 async function main() {
