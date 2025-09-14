@@ -41,7 +41,7 @@ async function addCommentToPr(
     owner,
     repo,
     issue_number: prNumber,
-    body: `Fixed #${issueNumber}`,
+    body: `Fixes #${issueNumber}`,
   });
 
   return res.data;

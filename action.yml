@@ -10,7 +10,7 @@ inputs:
     description: >
       Personal access token (PAT) used for Github API requests.
       Usually (and per default) `github.token`
+    default: ${{ github.token }}
 runs:
   using: 'node24'
   main: 'dist/index.js'
-  post: 'dist/index.js'
