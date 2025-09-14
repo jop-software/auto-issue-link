@@ -3,6 +3,10 @@
     <p>Link new Pull Requests with existing Issues by the branch name.</p>
 </div>
 
+## What is does?
+
+This action allows you to automatically link new Pull Requests with existing Issues based on the branch name. If a branch name contains an issue number (e.g., `feature/1234-new-feature`), the action will link the corresponding issue (e.g., issue #1234) to the newly created Pull Request.
+
 ## Inputs
 
 | Name    | Description                                 | Default               |
@@ -12,7 +16,16 @@
 ## Example usage
 
 ```yaml
-uses: jop-software/auto-issue-link@v1.0
+name: Auto Issue Link
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  link-pr-to-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: "jop-software/auto-issue-link@v1.0.0"
 ```
 
 ## License
