@@ -75,7 +75,7 @@ function addCommentToPr(context, token, prNumber, issueNumber) {
             owner,
             repo,
             issue_number: prNumber,
-            body: `Fixed #${issueNumber}`,
+            body: `Fixes #${issueNumber}`,
         });
         return res.data;
     });
@@ -131,7 +131,7 @@ exports.getIssueNumberFromBranch = getIssueNumberFromBranch;
 function validateEventName(context) {
     const eventName = context.eventName;
     const action = context.payload.action;
-    if (eventName !== "pull_request" && action !== "opened") {
+    if (eventName !== "pull_request" || action !== "opened") {
         throw new Error("This action only works on pull request opened events.");
     }
 }

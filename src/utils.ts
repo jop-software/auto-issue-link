@@ -4,7 +4,7 @@ export function validateEventName(context: Context) {
   const eventName = context.eventName;
   const action = context.payload.action;
 
-  if (eventName !== "pull_request" && action !== "opened") {
+  if (eventName !== "pull_request" || action !== "opened") {
     throw new Error("This action only works on pull request opened events.");
   }
 }
