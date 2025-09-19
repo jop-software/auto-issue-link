@@ -2,14 +2,23 @@
   "name": "@jop-software/auto-issue-link",
   "version": "1.0.0",
   "description": "Link your new PRs with existing Issues",
-  "main": "lib/main.js",
+  "main": "src/main.ts",
   "scripts": {
-    "build": "tsc && ncc build --license licenses.txt",
+    "typecheck": "tsc --noEmit",
     "test": "vitest --run",
     "test:watch": "vitest"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "jop-software Inh. Johannes Przymusinski",
+    "email": "info@jop-software.de"
+  },
+  "contributors": [
+    {
+      "name": "Johannes Przymusinski",
+      "email": "johannes@jop-software.de"
+    }
+  ],
   "license": "AGPL-3.0-only",
   "dependencies": {
     "@actions/core": "^1.11.1",
@@ -17,9 +26,8 @@
   },
   "devDependencies": {
     "@types/node": "^24.3.3",
-    "@vercel/ncc": "^0.38.0",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   },
-  "packageManager": "pnpm@9.15.3+sha512.1f79bc245a66eb0b07c5d4d83131240774642caaa86ef7d0434ab47c0d16f66b04e21e0c086eb61e62c77efc4d7f7ec071afad3796af64892fae66509173893a"
+  "packageManager": "pnpm@10.17.0"
 }
