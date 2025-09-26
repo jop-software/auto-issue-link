@@ -71,7 +71,7 @@ async function run(): Promise<void> {
   );
   const issue = await findIssueByNumber(context, token, issueNumber);
   if (!issue) {
-    core.setFailed(
+    core.info(
       `Could not find issue with number ${issueNumber} in this repository.`
     );
     return;
