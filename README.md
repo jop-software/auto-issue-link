@@ -25,7 +25,7 @@ jobs:
   link-pr-to-issue:
     runs-on: ubuntu-latest
     steps:
-      - uses: "jop-software/auto-issue-link@v1.0.0"
+      - uses: "jop-software/auto-issue-link@v1"
 ```
 
 ## License
