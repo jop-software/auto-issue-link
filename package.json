@@ -2,7 +2,7 @@
   "name": "@jop-software/auto-issue-link",
   "version": "1.0.0",
   "description": "Link your new PRs with existing Issues",
-  "main": "dist/index.js",
+  "main": "src/main.ts",
   "scripts": {
     "build": "tsc && ncc build --license licenses.txt",
     "test": "vitest --run",
