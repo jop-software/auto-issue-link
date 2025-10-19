@@ -66,6 +66,10 @@ async function run(): Promise<void> {
   validateEventName(context);
   const branchName = getBranchName(context);
   const issueNumber = getIssueNumberFromBranch(branchName);
+  if (!issueNumber) {
+    core.info(`No issue number found in branch ${branchName}.`)
+    return;
+  }
   core.info(
     `Detected issue number ${issueNumber} from branch name ${branchName}`
   );

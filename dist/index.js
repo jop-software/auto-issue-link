@@ -30023,6 +30023,10 @@ function run() {
         (0, utils_1.validateEventName)(context);
         const branchName = (0, utils_1.getBranchName)(context);
         const issueNumber = (0, utils_1.getIssueNumberFromBranch)(branchName);
+        if (!issueNumber) {
+            core.info(`No issue number found in branch ${branchName}.`);
+            return;
+        }
         core.info(`Detected issue number ${issueNumber} from branch name ${branchName}`);
         const issue = yield findIssueByNumber(context, token, issueNumber);
         if (!issue) {
@@ -30082,7 +30086,7 @@ function getBranchName(context) {
 function getIssueNumberFromBranch(branchName) {
     const issueNumberMatch = branchName.match(/(?:(?<=\/)|^)(\d+)/);
     if (!issueNumberMatch) {
-        throw new Error("Branch name does not contain a valid issue number.");
+        return null;
     }
     return parseInt(issueNumberMatch[1], 10);
 }

@@ -22,7 +22,7 @@ export function getBranchName(context: Context) {
 export function getIssueNumberFromBranch(branchName: string) {
   const issueNumberMatch = branchName.match(/(?:(?<=\/)|^)(\d+)/);
   if (!issueNumberMatch) {
-    throw new Error("Branch name does not contain a valid issue number.");
+    return null;
   }
   return parseInt(issueNumberMatch[1], 10);
 }
