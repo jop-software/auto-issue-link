@@ -44,7 +44,7 @@ describe("utils", () => {
     "feature//missing-number",
     "feature/--",
     "release/x123", // number not at start of token
-  ])("throws for invalid branch '%s'", (branch) => {
-    expect(() => getIssueNumberFromBranch(branch)).toThrow();
+  ])("returns null for invalid branch '%s'", (branch) => {
+    expect(getIssueNumberFromBranch(branch)).toBeNull();
   });
 });
