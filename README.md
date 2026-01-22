@@ -23,7 +23,7 @@ on:
 
 jobs:
   link-pr-to-issue:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: "jop-software/auto-issue-link@v1"
 ```
