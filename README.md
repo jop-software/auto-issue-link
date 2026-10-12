@@ -37,5 +37,5 @@ This project is licensed under the terms of the AGPL-3.0 license. See the [LICEN
 Enterprise Support and Licensing is available, contact [info@jop-software.de](mailto:info@jop-software.de) for more information.
 
 <div align="center">
-    <span>&copy; 2025, jop-software Inh. Johannes Przymusinski</span>
+    <span>&copy; 2025-2026, jop-software Inh. Johannes Przymusinski</span>
 </div>
