@@ -1,18 +1,19 @@
 {
     "compilerOptions": {
       "target": "es6",
-      "module": "commonjs",
+      "module": "esnext",
       "lib": [
         "es6"
       ],
-      "outDir": "./lib",
+      "outDir": "./dist",
       "rootDir": "./src",
       "declaration": true,
       "strict": true,
       "noImplicitAny": false,
       "esModuleInterop": true,
       "skipLibCheck": true,
-      "types": ["node", "vitest"]
+      "types": ["node", "vitest"],
+      "moduleResolution": "bundler"
     },
     "include": ["src/**/*"],
     "exclude": ["**/*.test.ts", "vitest.config.ts", "lib", "node_modules"]

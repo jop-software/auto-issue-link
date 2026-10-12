@@ -28,6 +28,12 @@ jobs:
       - name: 🛠️ Test build
         run: pnpm build
 
+      - name: Verify build is up-to-date
+        run: |
+          if [ -n "$(git status --porcelain dist/)" ]; then
+            echo "dist/ is not up to date. run pnpm build locally and push the changes."
+            exit 1
+          fi
+
       - name: 🧪 Test project
         run: pnpm test
-
