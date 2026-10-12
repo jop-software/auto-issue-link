@@ -13,13 +13,13 @@ permissions:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v6
       - run: corepack enable
       - uses: actions/setup-node@v6
         with:
-          node-version: lts/*
+          node-version-file: ".nvmrc"
           cache: pnpm
 
       - name: 📦 Install dependencies
