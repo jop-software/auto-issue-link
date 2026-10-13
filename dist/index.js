@@ -31373,7 +31373,7 @@ function main() {
             run();
         }
         catch (error) {
-            coreExports.setFailed(error.message);
+            coreExports.setFailed(error instanceof Error ? error.message : String(error));
         }
     });
 }

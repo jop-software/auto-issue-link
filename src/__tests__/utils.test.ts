@@ -1,11 +1,12 @@
 import { describe, it, expect } from "vitest";
+import type { Context } from "@actions/github/lib/context";
 import {
   validateEventName,
   getBranchName,
   getIssueNumberFromBranch,
 } from "../utils";
 
-const baseContext: any = {
+const baseContext = {
   payload: {
     pull_request: {
       head: { ref: "feature/123-add-thing" },
@@ -13,7 +14,7 @@ const baseContext: any = {
     action: "opened",
   },
   eventName: "pull_request",
-};
+} as unknown as Context;
 
 describe("utils", () => {
   it("validateEventName does not throw for pull_request opened", () => {
