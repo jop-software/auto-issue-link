@@ -10,7 +10,7 @@ import { Context } from "@actions/github/lib/context";
 async function findIssueByNumber(
   context: Context,
   token: string,
-  issueNumber: number
+  issueNumber: number,
 ) {
   const octokit = github.getOctokit(token);
   const { owner, repo } = context.repo;
@@ -32,7 +32,7 @@ async function appendFixesToPrBody(
   context: Context,
   token: string,
   prNumber: number,
-  issueNumber: number
+  issueNumber: number,
 ) {
   const octokit = github.getOctokit(token);
   const { owner, repo } = context.repo;
@@ -67,16 +67,16 @@ async function run(): Promise<void> {
   const branchName = getBranchName(context);
   const issueNumber = getIssueNumberFromBranch(branchName);
   if (!issueNumber) {
-    core.info(`No issue number found in branch ${branchName}.`)
+    core.info(`No issue number found in branch ${branchName}.`);
     return;
   }
   core.info(
-    `Detected issue number ${issueNumber} from branch name ${branchName}`
+    `Detected issue number ${issueNumber} from branch name ${branchName}`,
   );
   const issue = await findIssueByNumber(context, token, issueNumber);
   if (!issue) {
     core.info(
-      `Could not find issue with number ${issueNumber} in this repository.`
+      `Could not find issue with number ${issueNumber} in this repository.`,
     );
     return;
   }
@@ -87,22 +87,23 @@ async function run(): Promise<void> {
     core.setFailed("No pull request found in the context.");
     return;
   }
-  const updatedPr = await appendFixesToPrBody(
+  await appendFixesToPrBody(
     context,
     token,
     pullRequest.number,
-    issueNumber
+    issueNumber,
   );
   core.info(
-    `Updated PR #${pullRequest.number} body with 'Fixes #${issueNumber}'`
+    `Updated PR #${pullRequest.number} body with 'Fixes #${issueNumber}'`,
   );
 }
 
 async function main() {
   try {
     run();
-  } catch (error: any) {
-    core.setFailed(error.message);
+  }
+  catch (error) {
+    core.setFailed(error instanceof Error ? error.message : String(error));
   }
 }
 
